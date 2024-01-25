@@ -1,5 +1,6 @@
 from ._anvil_designer import star_1_borrower_registration_form_begin_3b_business_3Template
 from anvil import *
+import anvil.facebook.auth
 import anvil.server
 import anvil.google.auth, anvil.google.drive
 from anvil.google.drive import app_files

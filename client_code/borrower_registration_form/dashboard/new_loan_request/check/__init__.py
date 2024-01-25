@@ -1,3 +1,4 @@
+import anvil.facebook.auth
 from datetime import datetime, timedelta
 import anvil.server
 import anvil.tables as tables

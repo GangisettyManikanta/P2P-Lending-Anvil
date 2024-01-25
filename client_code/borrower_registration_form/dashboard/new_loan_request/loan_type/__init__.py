@@ -1,3 +1,5 @@
+import anvil.facebook.auth
+import anvil.server
 from anvil import open_form, alert
 from .. import main_form_module as main_form_module
 from ... import app_tables
