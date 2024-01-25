@@ -281,3 +281,4 @@ components:
     components: []
     layout_properties: {row: JUWDTC, width_xs: 1, col_xs: 11, width: 93.6875}
 is_package: true
+custom_component: false
