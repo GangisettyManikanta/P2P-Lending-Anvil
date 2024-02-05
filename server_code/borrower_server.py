@@ -267,4 +267,7 @@ def generate_emi_id():
 
 
 # bessem code
-
+@anvil.server.callable
+def get_table_data():
+  data=app_tables.fin_emi_table.search()
+  return data
