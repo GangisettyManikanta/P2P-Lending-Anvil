@@ -10,7 +10,7 @@ from datetime import datetime
 
 @anvil.server.callable
 def get_table_data():
-  data=app_tables.fin_extends_loan.search()
+  data=app_tables.fin_loan_details.search()
   return data
 # @anvil.server.callable
 # def add_borrower_step1(full_name,gender,dob,user_id):
