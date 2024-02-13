@@ -6,7 +6,11 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
-
+@anvil.server.callable
+def calculate_next_month_due(scheduled_payment):
+    current_due_date = datetime.strptime(scheduled_payment, "%Y-%m-%d").date()
+    next_due_date = current_due_date + timedelta(days=30)  # Assuming one month duration
+    return next_due_date.strftime("%Y-%m-%d")
 @anvil.server.callable
 def today_dues():
   app_tables.fin_loan_details.search()
