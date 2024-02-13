@@ -10,6 +10,7 @@ import datetime
 @anvil.server.callable
 def calculate_next_month_due():
   app_tables.fin_loan_details.search()
+  app_tables.fin_emi_table.search()
     # Assuming scheduled_payment is a string in the format 'YYYY-MM-DD'
   try:
       scheduled_date = datetime.datetime.strptime(scheduled_payment, '%Y-%m-%d').date()
