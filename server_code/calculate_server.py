@@ -7,6 +7,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 
+
 @anvil.server.callable
 def today_dues():
   app_tables.fin_loan_details.search()
