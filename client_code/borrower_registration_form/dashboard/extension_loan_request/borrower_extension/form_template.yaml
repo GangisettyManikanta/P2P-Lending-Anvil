@@ -152,6 +152,7 @@ components:
         background: '', bold: false, underline: false}
       name: text_box_1
       layout_properties: {row: FLGMTQ, width_xs: 4, col_xs: 7, width: 258.656}
+      event_bindings: {pressed_enter: text_box_1_pressed_enter}
     - name: label_5_copy
       properties: {role: null, align: center, tooltip: '', border: '', foreground: 'theme:Error',
         visible: false, text: '', font_size: 20, font: '', spacing_above: small, icon_align: left,
