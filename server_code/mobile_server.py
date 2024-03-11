@@ -376,3 +376,90 @@ def get_credit_limit():
         # Handle exceptions gracefully (log or print the error)
         print(f"An error occurred in get_credit_limit: {e}")
         return None
+
+@anvil.server.callable
+def calculate_extension_details(loan_id,loan_amount,extension_fee):  
+      product_data = tables.app_tables.fin_loan_details.search(loan_id=loan_id)
+      if product_data:
+        extension_fee = float(extension_fee)
+        loan_amount = float(loan_amount)
+        extension_amount = (extension_fee * loan_amount) / 100
+        return extension_amount
+      else:
+        return "Invalid amount"
+@anvil.server.callable
+def calculate_extension_emi(loan_amount,tenure,loan_extension_months):
+      fin_product_details=app_tables.fin_product_details.search()
+      if fin_product_details:
+            roi = fin_product_details[0]['roi']
+            roi = float(roi)
+      else:
+            return "ROI not found for the selected category"
+
+        # Convert loan_amount and loan_tenure to float
+      loan_amount = float(loan_amount)
+      loan_extension_months=float(loan_extension_months)
+      tenure=float(tenure)
+      if tenure > 0:
+        monthly_interest_rate = float(int(roi) / 100) / 12
+        num_installments = tenure
+        # Calculate EMI using the formula
+        loan_extension = (loan_amount * monthly_interest_rate * pow(1 + monthly_interest_rate, num_installments)) / \
+              (pow(1 + monthly_interest_rate, num_installments) - 1)
+        emi=loan_extension +loan_extension_months
+        return emi  # Return the emi directly
+      else:
+        return "Loan details not found"
+@anvil.server.callable
+def calculate_extension_loan(loan_id, loan_extension_months):
+    loan_row = app_tables.fin_loan_details.get(loan_id=str(loan_id))
+
+    if loan_row:
+        fin_product_details = app_tables.fin_product_details.search()
+        if fin_product_details:
+            roi = fin_product_details[0]['roi']
+            if roi is not None:
+                roi = float(roi)
+            else:
+                return "ROI not found for the selected category"
+        else:
+            return "Product details not found"
+
+        total = app_tables.fin_loan_details.search()
+        if total:
+            total_loan = total[0]['total_payments_made']
+            if total_loan is not None:
+                total_loan = float(total_loan)
+            else:
+                return "Invalid payments"
+        else:
+            return "No loan details found"
+
+        payment = app_tables.fin_emi_table.search()
+        if payment:
+            total_payment = payment[0]['emi_number']
+            if total_payment is not None:
+                total_payment = float(total_payment)
+            else:
+                return "Invalid total payment emi number"
+        else:
+            return "No payment details found"
+
+        # Assuming you have 'loan_amount' and 'tenure' available in your function
+        # Convert loan_amount and tenure to float
+        loan_amount = float(loan_row['loan_amount'])
+        tenure = float(loan_row['tenure'])
+
+        if tenure > 0:
+            monthly_interest_rate = roi / 100 / 12
+            emi_denominator = ((1 + monthly_interest_rate) ** tenure) - 1
+            emi_numerator = loan_amount * monthly_interest_rate * ((1 + monthly_interest_rate) ** tenure)
+            emi = emi_numerator / emi_denominator
+            emi_paid = total_payment * emi
+            remaining_loan_amount = emi_paid-total_loan
+            return remaining_loan_amount  # Return the remaining_loan_amount directly
+        else:
+            return "Invalid tenure"
+
+    else:
+        return "Loan details not found"
