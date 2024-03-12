@@ -3,7 +3,7 @@ from anvil import *
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
-from ... import main_form_module 
+from ......borrower_registration_form.dashboard import main_form_module
 
 
 class ItemTemplate31(ItemTemplate31Template):
@@ -14,6 +14,7 @@ class ItemTemplate31(ItemTemplate31Template):
         user_data = app_tables.fin_user_profile.get(customer_id=self.user_id)
         if user_data:
             self.image_1.source = user_data['user_photo']
+            self.image_1_copy.source = user_data['u']
 
     def outlined_button_1_click(self, **event_args):
         """This method is called when the button is clicked"""
