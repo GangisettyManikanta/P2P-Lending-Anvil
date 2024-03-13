@@ -10,6 +10,8 @@ components:
     properties: {height: 63.399932861328125, source: 'https://freesvg.org/img/abstract-user-flat-4.png'}
     type: Image
     layout_properties: {x: 3.050000000745058, y: 0, width: 66}
+    data_bindings:
+    - {property: source, code: 'self.item[''user_photo'']'}
   - name: label_3
     properties: {text: '---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------',
       foreground: grey}
@@ -26,9 +28,11 @@ components:
     type: Label
     layout_properties: {x: 12.138893127441406, y: 237.25, width: 103.597}
   - name: return
-    properties: {}
+    properties: {text: ''}
     type: Label
     layout_properties: {x: 735.3750228881836, y: 237.25, width: 200}
+    data_bindings:
+    - {property: text, code: 'self.item[''loan_disbursed_timestap'']', writeback: false}
   - name: label_7
     properties: {text: 'Term :'}
     type: Label
@@ -70,7 +74,7 @@ components:
     type: Label
     layout_properties: {x: 78.48612213134766, y: 27.9444580078125, width: 200}
     data_bindings:
-    - {property: text, code: 'self.item[''lender_customer_id'']', writeback: false}
+    - {property: text, code: 'self.item[''mobile'']', writeback: false}
   - name: lendor_name
     properties: {bold: true}
     type: Label
@@ -82,4 +86,4 @@ components:
     type: Label
     layout_properties: {x: 735.2361068725586, y: -12, width: 200}
     data_bindings:
-    - {property: text, code: 'self.item[''product_id'']', writeback: false}
+    - {property: text, code: 'self.item[''product_name'']', writeback: false}

@@ -222,8 +222,10 @@ class star_1_borrower_registration_form_3_marital_married(star_1_borrower_regist
             guarantor_address=details['father_address'],
             another_person=details['another_person']  # Store the selected radio button's name
         )
-        
-        open_form('borrower_registration_form.star_1_borrower_registration_form_4_loan',user_id=self.userId)
+        if not details['father_name'] or not details['father_dob'] or not details['father_mbl_no'] or not details['father_profession'] or not details['father_address']:
+          Notification("Please fill all the required fields").show()
+        else:
+          open_form('borrower_registration_form.star_1_borrower_registration_form_4_loan',user_id=self.userId)
 
     def button_submit_copy_click(self, **event_args):
         """This method is called when the button is clicked"""
@@ -239,8 +241,10 @@ class star_1_borrower_registration_form_3_marital_married(star_1_borrower_regist
             guarantor_address=details['mother_address'],
             another_person=details['another_person']  # Store the selected radio button's name
         )
-        
-        open_form('borrower_registration_form.star_1_borrower_registration_form_4_loan',user_id=self.userId)
+        if not details['mother_name'] or not details['mother_dob'] or not details['mother_mbl_no'] or not details['mother_profession'] or not details['mother_address']:
+          Notification("Please fill all the required fields").show()
+        else:
+          open_form('borrower_registration_form.star_1_borrower_registration_form_4_loan',user_id=self.userId)
 
     def button_submit_copy_2_click(self, **event_args):
         """This method is called when the button is clicked"""
@@ -257,15 +261,31 @@ class star_1_borrower_registration_form_3_marital_married(star_1_borrower_regist
             guarantor_annual_earning=details['annual_earning'],
             another_person=details['another_person']  # Store the selected radio button's name
         )
-
-        open_form('borrower_registration_form.star_1_borrower_registration_form_4_loan',user_id=self.userId)
+        if not details['spouse_name'] or not details['spouse_dob'] or not details['spouse_mbl_no'] or not details['spouse_profession'] or not details['spouse_company']:
+          Notification("Please fill all the required fields").show()
+        else:
+          open_form('borrower_registration_form.star_1_borrower_registration_form_4_loan',user_id=self.userId)
 
     def button_submit_copy_3_click(self, **event_args):
         """This method is called when the button is clicked"""
         details = self.collect_details()
+        app_tables.fin_guarantor_details.add_row(
+        customer_id=self.userId,
+        guarantor_name=details['related_person_name'],
+        guarantor_date_of_birth=details['related_person_dob'],
+        guarantor_mobile_no=details['related_person_mob'],
+        guarantor_profession=details['related_person_profession'],
+        guarantor_person_relation= details['related_person_relation'],
+        another_person=details['another_person']  # Store the selected radio button's name
+        )        
 
         # Insert details into the data table
-        app_tables.fin_guarantor_details.add_row(
+
+        if not details['related_person_name'] or not details['related_person_dob'] or not details['related_person_mob'] or not details['related_person_profession'] or not details['related_person_relation']:
+          Notification("Please fill all the required fields").show()
+        else:
+            details = self.collect_details()
+            app_tables.fin_guarantor_details.add_row(
             customer_id=self.userId,
             guarantor_name=details['related_person_name'],
             guarantor_date_of_birth=details['related_person_dob'],
@@ -273,9 +293,8 @@ class star_1_borrower_registration_form_3_marital_married(star_1_borrower_regist
             guarantor_profession=details['related_person_profession'],
             guarantor_person_relation= details['related_person_relation'],
             another_person=details['another_person']  # Store the selected radio button's name
-        )
- 
-        open_form('borrower_registration_form.star_1_borrower_registration_form_4_loan',user_id=self.userId)
+            )
+            open_form('borrower_registration_form.star_1_borrower_registration_form_4_loan',user_id=self.userId)
 
     def prev_1_click(self, **event_args):
       """This method is called when the button is clicked"""
