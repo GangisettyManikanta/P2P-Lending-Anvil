@@ -250,8 +250,7 @@ def add_loan_data(loan_amount, loan_tenure, roi, total_repayment, date_of_apply)
         customer_name = borrower_name_list[index]
         loan_id = generate_loan_id()
         app_tables.fin_loan_details.add_row(
-            borrower_customer_id=customer_id,
-            borrower_full_name=customer_name,
+            
             loan_id=loan_id,
             loan_amount=float(loan_amount),
             tenure=float(loan_tenure),
@@ -259,7 +258,9 @@ def add_loan_data(loan_amount, loan_tenure, roi, total_repayment, date_of_apply)
             total_repayment_amount=float(total_repayment),
             interest_rate=float(roi),
             borrower_loan_created_timestamp=date_of_apply,
-            borrower_email_id=email
+            borrower_email_id=email,
+            borrower_customer_id=customer_id,
+            borrower_full_name=customer_name,
         )
 
         # You can also return the loan ID if needed
