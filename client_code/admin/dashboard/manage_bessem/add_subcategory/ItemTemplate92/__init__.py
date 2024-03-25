@@ -1,4 +1,4 @@
-from ._anvil_designer import facts_edit_formTemplate
+from ._anvil_designer import ItemTemplate92Template
 from anvil import *
 import anvil.server
 import anvil.google.auth, anvil.google.drive
@@ -8,7 +8,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
-class facts_edit_form(facts_edit_formTemplate):
+class ItemTemplate92(ItemTemplate92Template):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
@@ -17,8 +17,5 @@ class facts_edit_form(facts_edit_formTemplate):
 
   def link_1_click(self, **event_args):
     """This method is called when the link is clicked"""
-    open_form('admin.dashboard.manage_settings.manage_facts')
-
-  def button_1_copy_3_click(self, **event_args):
-    """This method is called when the button is clicked"""
-    open_form('admin.dashboard.manage_settings.manage_facts')
+    item_data = self.item
+    open_form('admin.dashboard.manage_bessem.add_subcategory.edit_vehicle_loan',selected_row=item_data)
